@@ -8,8 +8,25 @@ import {
 } from 'react-native';
 
 import { Header } from 'react-native-elements';
-
+import database from '../config'
 export default class WriteStoryScreen extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      title:'',
+      author:'',
+      story:'',
+    }
+  }
+
+  updateAuthor = () =>{
+    database.ref('/').update({
+      Author:this.state.author,
+      Title:this.state.title,
+      Story:this.state.story
+    })
+  }
+
   render(){
     return(
       <View style = {styles.container}>
@@ -24,11 +41,21 @@ export default class WriteStoryScreen extends React.Component{
         <TextInput
         style={styles.inputBox}
         placeholder="Title"
+        onChangeText={(text)=>{
+          this.setState({
+            title:text
+          })
+        }}
         ></TextInput>
 
         <TextInput
         style={styles.inputBox}
         placeholder="Author"
+        onChangeText={(text)=>{
+          this.setState({
+            author:text
+          })
+        }}
         ></TextInput>
         
 
@@ -37,11 +64,19 @@ export default class WriteStoryScreen extends React.Component{
         placeholder="Your Story"
         multiline
         numberOfLines={4}
+        onChangeText={(text)=>{
+          this.setState({
+            story:text
+          })
+        }}
         ></TextInput>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={this.updateAuthor}>
           <Text style={styles.buttonText}>SUBMIT</Text>
         </TouchableOpacity>
+
+        <Text>{this.state.author}</Text>
       </View>
     )
   }

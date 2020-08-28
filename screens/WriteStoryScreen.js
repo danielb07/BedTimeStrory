@@ -4,7 +4,9 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView,
+  ToastAndroid
 } from 'react-native';
 
 import { Header } from 'react-native-elements';
@@ -29,7 +31,8 @@ export default class WriteStoryScreen extends React.Component{
 
   render(){
     return(
-      <View style = {styles.container}>
+      <KeyboardAvoidingView  style = {styles.container} behavior='padding' enabled>
+      
         <Header
           backgroundColor={'#FFC0CB'}
           centerComponent={{
@@ -72,12 +75,12 @@ export default class WriteStoryScreen extends React.Component{
         ></TextInput>
 
         <TouchableOpacity style={styles.button}
-        onPress={this.updateAuthor}>
+        onPress={[this.updateAuthor,ToastAndroid.show("story sent",ToastAndroid.SHORT)]} >
           <Text style={styles.buttonText}>SUBMIT</Text>
         </TouchableOpacity>
 
         <Text>{this.state.author}</Text>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

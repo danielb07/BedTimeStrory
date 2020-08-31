@@ -12,39 +12,36 @@ import SearchResults from '../components/SearchResults'
 
 import database from '../config'
 
+const DATA = [
+  {
+    id: '1',
+    title: 'Harry Potter',
+  },
+  {
+    id: '2',
+    title: 'Hardy Boys',
+  },
+  {
+    id: '3',
+    title: 'Nancy Drew',
+  },
+];
+
 export default class ReadStoryScreen extends React.Component{
   constructor(){
+    
     super()
     this.state = {
-      search:'',
-      allStories:['Harry Potter', 'Hardy Boys', 'Nancy Drew'],
-      results:[]
+      results:DATA
     }
   }
 
   SearchFilterFunction  = (search) => {
+    var search_data;
     this.setState({
       search:search,
-      results: []
     });
-    var allStories = this.state.allStories;
-    allStories.map((story)=>{
-      if(story.startsWith(search)){
-        if(search !=''){
-          this.setState({
-             results: this.state.results.push(story)
-          })
-        }
-      }
-    })
-  };
-
-  
-    
- 
-
-
-
+  }
   render(){
     return(
       <View style = {styles.container}>
@@ -62,7 +59,7 @@ export default class ReadStoryScreen extends React.Component{
         />
 
         <SearchResults options={this.state.results}></SearchResults>
-        <Text>{this.state.results}</Text>
+        
         
       </View>
       
